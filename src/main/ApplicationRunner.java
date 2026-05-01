@@ -23,11 +23,16 @@ public class ApplicationRunner {
             SearchEvaluator evaluator = new SearchEvaluator();
             List<SearchIntent> activeQueries = evaluator.parseQueries("inputs/topics.txt");
             
-            System.out.println("Executing search ranking...");
-            // Mode 3 corresponds to Narrative + Title analysis
-            evaluator.runRankingPhase(activeQueries, dataAnalyzer, textCleaner, 3, "vsm_output.txt");
+            System.out.println("Executing search ranking for Setting 1 (Title Only)...");
+            evaluator.runRankingPhase(activeQueries, dataAnalyzer, textCleaner, 1, "output_title.txt");
+
+            System.out.println("Executing search ranking for Setting 2 (Title + Description)...");
+            evaluator.runRankingPhase(activeQueries, dataAnalyzer, textCleaner, 2, "output_title_desc.txt");
+
+            System.out.println("Executing search ranking for Setting 3 (Title + Narrative)...");
+            evaluator.runRankingPhase(activeQueries, dataAnalyzer, textCleaner, 3, "output_title_narr.txt");
             
-            System.out.println("Process Complete. Review vsm_output.txt for VSM rankings.");
+            System.out.println("Process Complete. Review the three output text files for VSM rankings.");
             
         } catch (Exception e) {
             System.err.println("Critical Failure: " + e.getMessage());
